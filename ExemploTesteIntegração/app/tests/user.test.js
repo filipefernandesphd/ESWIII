@@ -2,6 +2,10 @@ const request = require('supertest');
 const app = require('../app');
 const axios = require('axios'); // usa-se para consumir endpoints
 
+// USANDO O SUPERTEST
+// Plano de testes que possui 3 casos de testes que utilizam o Supertest
+// O Supertest é usando para testar conumo a endpoints que não exigem a execução da aplicação que está sendo desenvolvida.
+
 // Define um conjunto de testes agrupados com o nome 'GET /users (com dados externos)'
 describe('GET /users (com dados externos)', () => {
 
@@ -35,7 +39,8 @@ describe('GET /users (com dados externos)', () => {
   });
 });
 
-
+// USANDO O MOCK NO AXIOS
+// Plano de teste que possui 1 caso de teste que mocka o consumo ao serviço de CEP
 describe('GET /users/register/postcode/:number', () => {
   it('deve retornar os dados de endereço mockados a partir do número do CEP', async () => {
     // Mocka o axios apenas neste teste
