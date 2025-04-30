@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node-livro-backend            # Nome da imagem
+    container_name: backend              # Nome do container
+    ports:
+      - "3332:3000"                      # HOST:APP
+    environment:
+      - MONGO_URI=mongodb://admin:senha123@mongodb:27277
+    volumes:
+      - .:/app                      # Monta o código local (modo dev)
+    command: npm run dev            # Comando de execução

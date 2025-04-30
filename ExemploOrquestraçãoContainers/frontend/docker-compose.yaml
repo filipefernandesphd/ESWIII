@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: node-frontend-livro      # Nome da imagem
+    container_name: frontend              # Nome do container
+    ports:
+      - "3331:3000"                       # HOST:APP
+    volumes:
+      - .:/app                      # Monta o código local (modo dev)
+    command: npm run dev            # Comando de execução

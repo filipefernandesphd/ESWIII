@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title= livro.titulo
+    style.
+      body { font-family: Arial, sans-serif; padding: 20px; }
+      h1 { color: #2c3e50; }
+      img { width: 200px; height: auto; margin-bottom: 20px; }
+      p { font-size: 16px; }
+      .voltar { margin-top: 20px; }
+      .voltar a {
+        text-decoration: none;
+        color: #3498db;
+      }
+
+  body
+    h1= livro.titulo
+    img(src=livro.imagem alt=livro.titulo)
+    p Autor: #{livro.autor}
+    p Preço: R$ #{livro.preco.toFixed(2)}
+    p Em estoque: #{livro.estoque}
+    .voltar
+      a(href='/livros') ← Voltar para lista
