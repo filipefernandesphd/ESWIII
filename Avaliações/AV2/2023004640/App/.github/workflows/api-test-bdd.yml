@@ -1,0 +1,12 @@
+WORKFLOW API-testes BDD
+on:
+  push
+
+job:
+  name: API-testes BDD
+  contex: test-bdd
+  on: ubuntu-latest
+
+service:
+  context: mongo:7
+  port: 27017:27017
