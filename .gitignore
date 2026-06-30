@@ -484,5 +484,8 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/latex,macos,node
- 
+
 .prompts/
+
+# Provas escaneadas e roster dos alunos (dados sensíveis — nunca versionar)
+GrandingTests/
