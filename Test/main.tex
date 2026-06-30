@@ -1,0 +1,51 @@
+% !TeX program = pdflatex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{avaliacao-template}
+
+% Suporte a acentos dentro dos blocos de código (listings)
+\lstset{literate=%
+  {á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1
+  {é}{{\'e}}1 {ê}{{\^e}}1 {í}{{\'i}}1
+  {ó}{{\'o}}1 {ô}{{\^o}}1 {õ}{{\~o}}1 {ú}{{\'u}}1
+  {ç}{{\c c}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Ç}{{\c C}}1
+}
+
+\renewcommand{\LogoInstituicao}{logo_horizontal_manhuacu.png}
+\renewcommand{\NomeAvaliacao}{Avaliação 2 (AV2)}
+\renewcommand{\PontuacaoAvaliacao}{2 pontos}
+\renewcommand{\CodigoDisciplina}{INF03098}
+\renewcommand{\NomeDisciplina}{Engenharia de Software III}
+\renewcommand{\DataAvaliacao}{\campo{3.0cm}}
+\renewcommand{\ProfessorAvaliacao}{Filipe Fernandes}
+\renewcommand{\OrientacoesProva}{%
+  \begin{enumerate}[label=\arabic*.]
+    \item A prova é individual e sem consulta.
+    \item Leia atentamente a contextualização do projeto antes de responder às questões.
+    \item Escreva as respostas na folha de respostas, identificando cada arquivo pelo seu caminho completo.
+    \item Em arquivos YAML, a indentação faz parte da sintaxe e será considerada na correção.
+    \item A interpretação das questões faz parte da avaliação.
+  \end{enumerate}
+}
+
+\begin{document}
+
+\CapaCadernoQuestoes
+
+\ModoQuestoes
+\pagestyle{cadernoQuestoes}
+\setcounter{page}{1}
+\input{contexto.tex}
+\section*{Questões}
+\input{questoes.tex}
+\label{UltimaPaginaCadernoQuestoes}
+
+\clearpage
+\ModoFolhaRespostas
+\setcounter{page}{1}
+\setcounter{questao}{0}
+\IdentificacaoFolhaRespostas
+\input{questoes.tex}
+\label{UltimaPaginaFolhaRespostas}
+
+\end{document}

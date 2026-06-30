@@ -1,0 +1,50 @@
+name: API - Testes BDD
+
+on:
+  push:
+
+jobs:
+  test-bdd:
+    name: API - testes BDD
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+
+    defaults:
+      run:
+        working-directory: App/api
+
+    env:
+      MONGODB_URI: mongodb://localhost:27017/cupmatches
+      PORT: 3000
+      API_URL: http://localhost:3000
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Build (TypeScript)
+        run: npm run build
+
+      - name: Seed do banco de dados
+        run: npm run seed
+
+      - name: Subir API
+        run: |
+          npm start &
+          sleep 5
+
+      - name: Executar testes BDD
+        run: npm run test:bdd

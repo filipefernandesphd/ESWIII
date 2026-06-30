@@ -1,0 +1,109 @@
+% Questões da AV2 - Containerização e CI da aplicação Copa Resultados
+% Os gabaritos das questões são lidos diretamente de Test/snippets/,
+% que contém cópias exatas dos arquivos reais do projeto App/.
+
+% 1 - App/api/Dockerfile
+\begin{questao}[0,5 ponto]
+Escreva o conteúdo completo do arquivo \texttt{App/api/Dockerfile}. O Dockerfile
+deve ser \emph{multi-stage}, com duas etapas:
+
+\begin{itemize}
+  \item \textbf{\texttt{build}}: instala todas as dependências e compila o
+        TypeScript;
+  \item \textbf{\texttt{production}}: instala somente as dependências de
+        produção e executa a API já compilada.
+\end{itemize}
+
+\resposta[22]{Conteúdo exato de \texttt{App/api/Dockerfile}:
+\lstinputlisting{snippets/api-Dockerfile.txt}}
+\end{questao}
+
+% 2 - App/docker-compose.yml
+\begin{questao}[0,5 ponto]
+Escreva o conteúdo completo do arquivo \texttt{App/docker-compose.yml},
+orquestrando os serviços \texttt{mongodb}, \texttt{api} e \texttt{web}.
+Considere que:
+
+\begin{itemize}
+  \item as portas expostas no host e as demais configurações devem usar as
+        variáveis de ambiente do arquivo \texttt{.env} da raiz
+        (apresentadas na contextualização);
+  \item os dados do MongoDB devem persistir em um volume nomeado;
+  \item o serviço \texttt{api} depende do \texttt{mongodb}, e o serviço
+        \texttt{web} depende da \texttt{api};
+%   \item o serviço \texttt{web} deve repassar \texttt{VITE\_API\_URL} como
+%         \emph{build arg}.
+\end{itemize}
+
+\resposta[54]{Conteúdo exato de \texttt{App/docker-compose.yml}:
+\lstinputlisting{snippets/docker-compose.txt}}
+\end{questao}
+
+% App/.env
+% \begin{questao}[0,2 ponto]
+% Com base nas variáveis de ambiente apresentadas na contextualização, escreva o
+% conteúdo completo do arquivo \texttt{App/.env}, utilizado pelo Docker
+% Compose.
+
+% \resposta[10]{Conteúdo exato de \texttt{App/.env}:
+% \lstinputlisting{snippets/env-dev.txt}}
+% \end{questao}
+
+% 3 - App/.github/workflows/api-test-bdd.yml
+\begin{questao}[0,7 ponto]
+Escreva o conteúdo completo do arquivo
+\texttt{App/.github/workflows/api-test-bdd.yml}, o workflow de
+\emph{GitHub Actions} que executa os testes BDD da API a cada \emph{push} no
+repositório. Considere que:
+
+\begin{itemize}
+  \item o workflow chama-se \texttt{API - Testes BDD} e deve disparar em
+        qualquer \emph{push};
+  \item há um único \emph{job} chamado \texttt{test-bdd} (nome de exibição
+        \texttt{API - testes BDD}) que roda em \texttt{ubuntu-latest};
+  \item o \emph{job} usa um \emph{service container} de banco de dados com a
+        imagem \texttt{mongo:7}, publicando a porta \texttt{27017:27017};
+  \item por padrão, todos os comandos \texttt{run} devem executar no diretório
+        \texttt{App/api} (\texttt{working-directory});
+  \item o \emph{job} define as variáveis de ambiente
+        \texttt{MONGODB\_URI=mongodb://localhost:27017/cupmatches},
+        \texttt{PORT=3000} e \texttt{API\_URL=http://localhost:3000};
+  \item os passos, nesta ordem, são: 
+      \begin{itemize}
+            \item \emph{checkout} do código (\texttt{actions/checkout@v4});
+            \item configurar o Node.js 20 (\texttt{actions/setup-node@v4});
+            \item instalar as dependências;
+            \item compilar o TypeScript;
+            \item popular o banco com o \emph{seed};
+            \item subir a API em segundo plano e aguardar 5 segundos; e
+\begin{lstlisting}
+run: |
+  npm start &
+  sleep 5
+\end{lstlisting}
+            \item executar os testes BDD.
+      \end{itemize}
+\end{itemize}
+
+
+% Os \emph{scripts} npm disponíveis são: \texttt{npm install}, \texttt{npm run
+% build}, \texttt{npm run seed}, \texttt{npm start} e \texttt{npm run test:bdd}.
+
+\resposta[54]{Conteúdo exato de
+\texttt{App/.github/workflows/api-test-bdd.yml}:
+\lstinputlisting{snippets/github-actions.txt}}
+\end{questao}
+
+% 5 - Sequência de comandos
+\begin{questao}[0,3 ponto]
+Considere o seguinte cenário: o Docker está iniciado; todos os pacotes do
+projeto estão instalados; o link do repositório remoto já foi adicionado ao
+projeto; e todas as mudanças estão comitadas. Escreva, na ordem correta, a
+sequência de comandos para \textbf{subir os containers} e, em seguida,
+\textbf{atualizar o repositório remoto}.
+
+\resposta[10]{Sequência de comandos:
+\lstinputlisting{snippets/comandos.txt}
+Observação: o \emph{push} dispara automaticamente o workflow
+\texttt{api-test-bdd.yml} no GitHub Actions, que executa os testes BDD da API.}
+\end{questao}

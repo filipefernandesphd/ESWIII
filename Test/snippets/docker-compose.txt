@@ -1,0 +1,33 @@
+name: cupmatches
+services:
+  mongodb:
+    image: mongo:7
+    container_name: copa-mongodb
+    ports:
+      - "${MONGODB_PORT}:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  api:
+    build:
+      context: ./api
+    container_name: copa-api
+    environment:
+      PORT: 3000
+      MONGODB_URI: ${MONGODB_URI}
+    ports:
+      - "${API_PORT}:3000"
+    depends_on:
+      - mongodb
+
+  web:
+    build:
+      context: ./web
+    container_name: copa-web
+    ports:
+      - "${WEB_PORT}:80"
+    depends_on:
+      - api
+
+volumes:
+  mongodb_data:
