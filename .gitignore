@@ -489,3 +489,6 @@ dist
 
 # Provas escaneadas e roster dos alunos (dados sensíveis — nunca versionar)
 GrandingTests/
+# Código-fonte da aplicação e da prova — não deve ser publicado nas branches dos alunos
+App/
+Test/
