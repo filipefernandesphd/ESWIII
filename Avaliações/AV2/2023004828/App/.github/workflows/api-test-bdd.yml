@@ -1,0 +1,20 @@
+name: API - Testes BDD
+trigger:
+  push:
+    branch: **
+jobs:
+  test-bdd:
+    name: API - Testes BDD
+    runs-on: ubuntu-latest
+    workdir-directory: App/api
+    environments:
+      MONGODB_URI: mongodb://localhost:27017/cupmatches
+      PORT: 3000
+      API_URL: http://localhost:3000
+    run: actions/checkout@v4
+    run: actions/setup-node@v4
+    run: npm install
+    run: npm run build
+    run: npm run seed
+    run: npm start E sleep 5
+    run: npm run test:bdd

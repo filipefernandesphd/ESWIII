@@ -1,0 +1,27 @@
+environment:
+  API_PORT: 3000
+  WEB_PORT: 5173
+  MONGODB_PORT: 27017
+  MONGODB_DATABASE: cupmatches
+  MONGODB_URI: mongodb://mongodb:27017/cupmatches
+
+services:
+  api:
+    build:
+      context: App/api
+    expose: 3000
+    depends_on:
+      MongoDB
+  web:
+    build:
+      context: App/web
+    expose: 5173
+    depends_on:
+      Api
+  mongodb:
+    build: Mongo:7
+    expose: 27017
+    volume:
+      VolumeDB
+    volume:
+      # configuração do volume
