@@ -1,0 +1,29 @@
+Services:
+  api:
+    context: ./api
+    depends_on:
+      - mongodb
+    port: ${API_PORT}
+    network:
+      - p2
+
+  web:
+    context: ./web
+    depends_on:
+      - api
+    port: ${WEB_PORT}
+    network:
+      - p2
+
+  mongodb:
+    image: mongo:7
+    depends_on:
+      - mongovolume
+    uri: ${MONGODB_URI}
+    port: ${MONGODB_PORT}
+    network
+      - p2
+volume:
+  - mongovolume
+Network
+  - p2

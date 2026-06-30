@@ -1,0 +1,30 @@
+name: API- testes BDD
+push:
+  "**"
+Work: App/api
+
+job:
+  name: test-BDD
+  image: ubuntu-latest
+
+steps:
+  name: checkout do código
+  use: actions/checkout@v4
+
+  name: configurar o Node.js
+  use: actions/setup-node@v4
+
+  name: instalar as dependencia
+  use: npm ci
+
+  name: compilar o TypeScript
+  use: npm run build
+
+  name: popular o banco com o seed
+  use: npm run seed
+
+  name: subir a API em segundo plano e aguardar 5 segundos
+  use: npm start & sleep5
+
+  name: executar os testes BDD
+  use: npm run test:bdd
